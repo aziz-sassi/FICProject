@@ -23,8 +23,8 @@ app.get(`/products`, (req, res) => {
     },
   })
   .then((response) => {
-    console.log(response.data,"chkara7omsssssssssssssssssssssssss")
     res.send(response.data)
+    console.log(response.data,"chkara7omsssssss")
   })
   .catch((error) => {
     console.error(error)
