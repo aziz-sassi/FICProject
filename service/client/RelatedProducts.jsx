@@ -1,6 +1,19 @@
-    import React, { useState, useEffect } from 'react';
-
+import React, { useRef, useState } from 'react';
+import SwiperCore, { Virtual } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import Comparison from "./Comparison.jsx";
+
+
+// Import Swiper styles
+import 'swiper/swiper.min.css';
+import 'swiper/components/pagination/pagination.min.css';
+import 'swiper/components/navigation/navigation.min.css';
+import './styles.css'
+
+
+// install Virtual module
+SwiperCore.use([Virtual]);
+
 
 
 
@@ -9,6 +22,14 @@ import Comparison from "./Comparison.jsx";
 
 
 export default function RelatedProducts(props) {
+  const [swiperRef, setSwiperRef] = useState(null);
+
+
+
+ 
+  // Create array with 1000 slides
+ 
+
 
 const [isToggled,setisToggled] = useState(false)
 
@@ -35,6 +56,8 @@ const [isToggled,setisToggled] = useState(false)
     }
 
 
+
+
     return (
         <div>
                 
@@ -51,8 +74,21 @@ const [isToggled,setisToggled] = useState(false)
         <div
           className ="flex flex-nowrap lg:ml-40 md:ml-20 ml-10 "
         >
-
-           {props.relatedData.map((e)=>(
+    <Swiper
+        onSwiper={setSwiperRef}
+        slidesPerView={3}
+        centeredSlides={true}
+        spaceBetween={30}
+        pagination={{
+          type: 'fraction',
+        }}
+        navigation={true}
+        virtual 
+        onClick = {()=> {return "opacity-5"}}
+        className={}
+      >
+           {props.relatedData.map((e,index)=>(
+             <SwiperSlide key={e.id} virtualIndex={index}>
                          <div className  ="inline-block px-3  "  key = {e.id} onClick = {()=>clickandle(true)}>
                          <div
                            className =" w-56 h-72 max-w-xs overflow-hidden  shadow-md bg-white  transition-shadow duration-300 ease-in-out border-2 hover:bg-white hover:shadow-lg hover:border-transparent"
@@ -71,10 +107,11 @@ const [isToggled,setisToggled] = useState(false)
    </div>
    </div>
           </div>
+          </SwiperSlide>  
            ))}  
+</Swiper>
       
-      
- 
+
         </div>
       </div>
 </div>
