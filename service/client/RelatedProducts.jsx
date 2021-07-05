@@ -24,11 +24,6 @@ const [isToggled,setisToggled] = useState(false)
 
 
 
-    useEffect(()=> {  
-   
-  
-     
-  },[]) ;
 
 
 

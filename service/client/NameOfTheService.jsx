@@ -15,6 +15,7 @@ const NameOfTheService = () => {
   useEffect(()=> {  
     axios.get('/products')
    .then(result => { setdata(result.data)
+    getoutfits()
    })
 },[]) ;
 const addToOutfits = (element)=>{
@@ -25,33 +26,54 @@ const addToOutfits = (element)=>{
   console.log("you cant add to outfits twice  ")
   }
 }
+const getoutfits = () => {
+
+
+ 
+          
+
+
+
+
+
+
+}
 const checkdata = ()=>{
   if (data[0] !== undefined) {
+    Promise.all ( data.map((e)=>{
 
-    data.map((e)=>{
+      return axios.get(`/products/${e.id}/styles`)
+   
+   
+        
+       }))
+             .then(result =>{ 
+        
+        setproductPics(result)
+        console.log(result)
+        console.log(productPics,"helllll")
+        return;
+  
+         // setproductPics([...productPics,result.data.results[0]])
+         // console.log(productPics,result.data.results[0].photos[0]['thumbnail_url'],"this is chkara7oms")
+   
+         
+             })
 
-      axios.get(`/products/${e.id}/styles`)
-      .then(result =>{ 
- 
-      setproductPics([...productPics,result.data.results[0]])
-      console.log(productPics,result.data.results[0].photos[0]['thumbnail_url'],"this is chkara7oms")
-
-      
-          })
-
-     
-    })
-    return (<> <RelatedProducts relatedData = {data} addoutfit = {addToOutfits}/>
+    return (<> <RelatedProducts relatedData = {data} addoutfit = {addToOutfits} pics = {productPics}/>
     <YourOutfitList relatedData = {data} outfitsData = {outfits}  /> </>)
   }
+
   else {
+
+    
     return <h1>chkara7oms</h1>
   }
 }
 return(
   <>
  {checkdata()}
-
+ 
   </>
 
 
