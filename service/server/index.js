@@ -32,15 +32,44 @@ app.get('/products/:productId/styles', (req, res) => {
 
 
 
-app.get(`/products`, (req, res) => {
-  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hrnyc/products`, {
+
+
+
+app.get(`/products/:product_id`, (req, res) => {
+  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hrnyc/products/${req.params.product_id}`, {
     headers: {
       Authorization: process.env.GITHUB_TOKEN
     },
   })
   .then((response) => {
     res.send(response.data)
-    console.log(response.data,"chkara7omsssssss")
+    console.log(response.data,"this data we got it after sending req with ids of products")
+  })
+  .catch((error) => {
+    console.error(error)
+  })
+})
+
+
+
+
+
+
+
+
+
+
+
+// this is for getting the array of ids of related data
+app.get(`/products/:product_id/related`, (req, res) => {
+  axios.get(`https://app-hrsei-api.herokuapp.com/api/fec2/hrnyc/products/${req.params.product_id}/related`, {
+    headers: {
+      Authorization: process.env.GITHUB_TOKEN
+    },
+  })
+  .then((response) => {
+    res.send(response.data)
+    console.log(response.data,"array of related data ids")
   })
   .catch((error) => {
     console.error(error)
